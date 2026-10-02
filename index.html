@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TaskEarn - Coding Rewards</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./script.js">
+
+    <!-- Python browser runtime -->
+   
+</head>
+
+<body>
+
+<!-- ================= REGISTER ================= -->
+
+<section id="registerPage" class="screen auth-screen">
+
+    <div class="auth-card">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>Task<span class="blue">Earn</span></span>
+        </div>
+
+        <h1>Create your account</h1>
+
+        <p class="subtitle">
+            Solve coding tasks and earn rewards.
+        </p>
+
+        <form id="registerForm">
+
+            <label>Full Name</label>
+            <input
+                id="regName"
+                type="text"
+                placeholder="Enter your full name"
+                required
+            >
+
+            <label>Email</label>
+            <input
+                id="regEmail"
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label>Mobile Number</label>
+            <input
+                id="regMobile"
+                type="tel"
+                placeholder="Enter mobile number"
+                required
+            >
+
+            <label>Password</label>
+            <input
+                id="regPassword"
+                type="password"
+                placeholder="Create password"
+                required
+            >
+
+            <button type="submit" class="primary-btn">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="switch-text">
+            Already have an account?
+
+            <button
+                onclick="showScreen('loginPage')"
+                class="text-btn"
+            >
+                Login
+            </button>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginPage" class="screen auth-screen hidden">
+
+    <div class="auth-card">
+
+        <div class="brand">
+            <div class="brand-icon">T</div>
+            <span>Task<span class="blue">Earn</span></span>
+        </div>
+
+        <h1>Welcome back</h1>
+
+        <p class="subtitle">
+            Login and continue solving tasks.
+        </p>
+
+        <form id="loginForm">
+
+            <label>Email</label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <label>Password</label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit" class="primary-btn">
+                Login
+            </button>
+
+        </form>
+
+        <p id="loginMessage" class="message"></p>
+
+        <p class="switch-text">
+            Don't have an account?
+
+            <button
+                onclick="showScreen('registerPage')"
+                class="text-btn"
+            >
+                Register
+            </button>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MAIN APPLICATION ================= -->
+
+<section id="appPage" class="hidden">
+
+    <div class="app-layout">
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div class="side-brand">
+
+                <div class="brand-icon">
+                    T
+                </div>
+
+                <span>
+                    Task<span class="blue">Earn</span>
+                </span>
+
+            </div>
+
+
+            <div class="user-mini">
+
+                <div
+                    class="avatar"
+                    id="userAvatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <strong id="sideUserName">
+                        User
+                    </strong>
+
+                    <small>
+                        Coding Worker
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <nav>
+
+                <button
+                    class="nav-item active"
+                    onclick="openPage('tasksPage', this)"
+                >
+                    <span>⌂</span>
+                    Tasks
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    onclick="openPage('walletPage', this)"
+                >
+                    <span>₹</span>
+                    Wallet
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    onclick="openPage('historyPage', this)"
+                >
+                    <span>↻</span>
+                    History
+                </button>
+
+
+                <button
+                    class="nav-item"
+                    onclick="openPage('profilePage', this)"
+                >
+                    <span>●</span>
+                    Profile
+                </button>
+
+            </nav>
+
+
+            <button
+                onclick="logout()"
+                class="logout-btn"
+            >
+                ⇥ Logout
+            </button>
+
+        </aside>
+
+
+        <!-- ================= MAIN ================= -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <span class="mobile-title">
+                    TaskEarn
+                </span>
+
+                <div class="top-user">
+
+                    <span>
+                        Balance
+                    </span>
+
+                    <strong id="topBalance">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </header>
+
+
+            <!-- ================= TASK PAGE ================= -->
+
+            <div
+                id="tasksPage"
+                class="content-page"
+            >
+
+                <div class="welcome-section">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            CODING TASKS
+                        </p>
+
+                        <h1>
+                            Solve. Submit. Earn.
+                        </h1>
+
+                        <p>
+                            Select a coding task, write your solution,
+                            pass all test cases and earn the displayed reward.
+                        </p>
+
+                    </div>
+
+
+                    <div class="earn-box">
+
+                        <span>
+                            Your Balance
+                        </span>
+
+                        <strong id="mainBalance">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stats-row">
+
+                    <div class="small-stat">
+
+                        <span class="stat-icon purple">
+                            ✓
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Completed
+                            </small>
+
+                            <strong id="completedCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="small-stat">
+
+                        <span class="stat-icon green">
+                            ₹
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Total Earned
+                            </small>
+
+                            <strong id="earnedAmount">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="small-stat">
+
+                        <span class="stat-icon orange">
+                            ★
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Available Tasks
+                            </small>
+
+                            <strong id="availableCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-header">
+
+                    <h2>
+                        Available Tasks
+                    </h2>
+
+                    <p>
+                        Complete the task correctly to unlock your reward.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="taskCards"
+                    class="task-grid"
+                ></div>
+
+            </div>
+
+
+            <!-- ================= CODING PAGE ================= -->
+
+            <div
+                id="codingPage"
+                class="content-page hidden"
+            >
+
+                <button
+                    onclick="backToTasks()"
+                    class="back-btn"
+                >
+                    ← Back to Tasks
+                </button>
+
+
+                <div class="coding-header">
+
+                    <div>
+
+                        <p class="eyebrow">
+                            CODING CHALLENGE
+                        </p>
+
+                        <h1 id="codingTitle">
+                            Task
+                        </h1>
+
+                    </div>
+
+
+                    <div
+                        class="reward-pill"
+                        id="codingReward"
+                    >
+                        ₹50 Reward
+                    </div>
+
+                </div>
+
+
+                <div class="coding-layout">
+
+
+                    <!-- QUESTION -->
+
+                    <div class="question-card">
+
+                        <h3>
+                            Problem Statement
+                        </h3>
+
+                        <p id="codingQuestion">
+                        </p>
+
+
+                        <div class="example-box">
+
+                            <strong>
+                                Example
+                            </strong>
+
+                            <p id="codingExample">
+                            </p>
+
+                        </div>
+
+
+                        <div class="instruction-box">
+
+                            <strong>
+                                Instructions
+                            </strong>
+
+                            <ul>
+
+                                <li>
+                                    Write your solution in the editor.
+                                </li>
+
+                                <li>
+                                    Click Run & Test.
+                                </li>
+
+                                <li>
+                                    Fix all errors if tests fail.
+                                </li>
+
+                                <li>
+                                    Submit only after all tests pass.
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                        <!-- TEST RESULT -->
+
+                        <div
+                            id="testResult"
+                            class="test-result hidden"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- EDITOR -->
+
+                    <div class="editor-card">
+
+                        <div class="editor-top">
+
+                            <span>
+                                Python Code Editor
+                            </span>
+
+                            <span>
+                                Python
+                            </span>
+
+                        </div>
+
+
+                        <textarea
+                            id="codeEditor"
+                            spellcheck="false"
+                            placeholder="# Write your Python code here..."
+                        ></textarea>
+
+
+                        <div class="editor-bottom">
+
+                            <span id="codeMessage">
+                                Write your solution and run the tests.
+                            </span>
+
+                            <div class="editor-buttons">
+
+                                <button
+                                    onclick="runTests()"
+                                    class="run-btn"
+                                    id="runButton"
+                                >
+                                    ▶ Run & Test
+                                </button>
+
+                                <button
+                                    onclick="submitTask()"
+                                    class="submit-btn"
+                                    id="submitButton"
+                                    disabled
+                                >
+                                    Submit Solution
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SUCCESS ================= -->
+
+            <div
+                id="successPage"
+                class="content-page hidden"
+            >
+
+                <div class="success-container">
+
+                    <div class="success-circle">
+                        ✓
+                    </div>
+
+                    <p class="eyebrow">
+                        ALL TESTS PASSED
+                    </p>
+
+                    <h1>
+                        Task Completed! 🎉
+                    </h1>
+
+                    <p>
+                        Your solution passed all test cases.
+                    </p>
+
+
+                    <div class="reward-result">
+
+                        <span>
+                            Reward Added
+                        </span>
+
+                        <strong id="rewardAdded">
+                            ₹50
+                        </strong>
+
+                    </div>
+
+
+                    <p class="new-balance">
+
+                        New Balance:
+
+                        <strong id="successBalance">
+                            ₹50
+                        </strong>
+
+                    </p>
+
+
+                    <div class="success-actions">
+
+                        <button
+                            onclick="backToTasks()"
+                            class="primary-btn"
+                        >
+                            Find Next Task
+                        </button>
+
+                        <button
+                            onclick="openWallet()"
+                            class="secondary-btn"
+                        >
+                            View Wallet
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= WALLET ================= -->
+
+            <div
+                id="walletPage"
+                class="content-page hidden"
+            >
+
+                <div class="page-heading">
+
+                    <p class="eyebrow">
+                        MY WALLET
+                    </p>
+
+                    <h1>
+                        Your Earnings
+                    </h1>
+
+                    <p>
+                        Rewards are added only after successful task submission.
+                    </p>
+
+                </div>
+
+
+                <div class="wallet-main">
+
+                    <div class="wallet-balance">
+
+                        <span>
+                            Available Balance
+                        </span>
+
+                        <h1 id="walletBalance">
+                            ₹0
+                        </h1>
+
+                        <button
+                            onclick="showWithdrawal()"
+                            class="primary-btn"
+                        >
+                            Withdraw Money
+                        </button>
+
+                    </div>
+
+
+                    <div class="wallet-info">
+
+                        <div>
+
+                            <span>
+                                Total Earned
+                            </span>
+
+                            <strong id="walletEarned">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Total Withdrawn
+                            </span>
+
+                            <strong id="walletWithdrawn">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Tasks Completed
+                            </span>
+
+                            <strong id="walletTasks">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="withdrawBox"
+                    class="withdraw-box hidden"
+                >
+
+                    <h2>
+                        Withdraw Earnings
+                    </h2>
+
+                    <p class="withdraw-help">
+                        Enter your payment details.
+                    </p>
+
+
+                    <label>
+                        Amount
+                    </label>
+
+                    <input
+                        id="withdrawAmount"
+                        type="number"
+                        placeholder="Enter amount"
+                    >
+
+
+                    <label>
+                        Payment Method
+                    </label>
+
+                    <select id="paymentMethod">
+
+                        <option value="">
+                            Select method
+                        </option>
+
+                        <option value="UPI">
+                            UPI
+                        </option>
+
+                        <option value="Bank Account">
+                            Bank Account
+                        </option>
+
+                    </select>
+
+
+                    <label>
+                        UPI ID / Account Number
+                    </label>
+
+                    <input
+                        id="paymentDetails"
+                        type="text"
+                        placeholder="Enter details"
+                    >
+
+
+                    <button
+                        onclick="withdrawMoney()"
+                        class="primary-btn"
+                    >
+                        Request Withdrawal
+                    </button>
+
+
+                    <p
+                        id="withdrawMessage"
+                        class="message"
+                    ></p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= HISTORY ================= -->
+
+            <div
+                id="historyPage"
+                class="content-page hidden"
+            >
+
+                <div class="page-heading">
+
+                    <p class="eyebrow">
+                        ACTIVITY
+                    </p>
+
+                    <h1>
+                        Task History
+                    </h1>
+
+                    <p>
+                        Your completed tasks and earned rewards.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="historyList"
+                    class="history-list"
+                ></div>
+
+            </div>
+
+
+            <!-- ================= PROFILE ================= -->
+
+            <div
+                id="profilePage"
+                class="content-page hidden"
+            >
